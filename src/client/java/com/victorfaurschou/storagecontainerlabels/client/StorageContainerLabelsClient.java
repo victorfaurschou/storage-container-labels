@@ -281,7 +281,7 @@ public class StorageContainerLabelsClient implements ClientModInitializer {
 
 				poseStack.pushPose();
 				poseStack.translate(dx, dy, dz);
-				poseStack.mulPose(camera.orientation);
+				poseStack.rotate(camera.orientation);
 				poseStack.scale(scale, -scale, scale);
 
 				for (int li = 0; li < lines.size(); li++) {

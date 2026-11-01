@@ -33,9 +33,9 @@ Open the config screen via **Mod Menu** or by running `/storage-container-labels
 
 ## 💡 Examples
 
-[![Showcase](https://raw.githubusercontent.com/victorfaurschou/storage-container-labels/26.2/.github/images/examples/showcase.png)](https://github.com/victorfaurschou/storage-container-labels/blob/26.2/.github/images/examples/showcase.png)
+[![Showcase](https://raw.githubusercontent.com/victorfaurschou/storage-container-labels/26.3/.github/images/examples/showcase.png)](https://github.com/victorfaurschou/storage-container-labels/blob/26.3/.github/images/examples/showcase.png)
 
-[![Naming a chest](https://raw.githubusercontent.com/victorfaurschou/storage-container-labels/26.2/.github/images/examples/naming-a-chest.gif)](https://github.com/victorfaurschou/storage-container-labels/blob/26.2/.github/images/examples/naming-a-chest.gif)
+[![Naming a chest](https://raw.githubusercontent.com/victorfaurschou/storage-container-labels/26.3/.github/images/examples/naming-a-chest.gif)](https://github.com/victorfaurschou/storage-container-labels/blob/26.3/.github/images/examples/naming-a-chest.gif)
 
 ## 🔗 Dependencies
 

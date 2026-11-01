@@ -23,10 +23,10 @@ jobs:
       build_event: ${{ github.event_name }}
       modrinth_loaders: fabric
       modrinth_environment: client_or_server_prefers_both
-      modrinth_minecraft_versions: "26.2"
+      modrinth_minecraft_versions: "26.3"
       modrinth_dependencies: '[{"project_id":"P7dR8mSH","dependency_type":"required"},{"project_id":"9s6osm5g","dependency_type":"required"},{"project_id":"mOgUt4GM","dependency_type":"optional"}]'
       curseforge_loaders: fabric
       curseforge_relations: '[{"slug":"fabric-api","type":"requiredDependency"},{"slug":"cloth-config","type":"requiredDependency"},{"slug":"modmenu","type":"optionalDependency"}]'
-      curseforge_minecraft_versions: "26.2"
+      curseforge_minecraft_versions: "26.3"
       curseforge_java_versions: "25"
     secrets: inherit
