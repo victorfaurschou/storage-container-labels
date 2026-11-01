@@ -1,0 +1,11 @@
+{
+	"schemaVersion": 1,
+	"id": "storage-container-labels-gametest",
+	"version": "1.0.0",
+	"name": "Storage Container Labels game tests",
+	"environment": "client",
+	"entrypoints": {
+		"fabric-client-gametest": ["com.victorfaurschou.storagecontainerlabels.gametest.StorageContainerLabelsClientGameTest"]
+	},
+	"depends": { "storage-container-labels": "*" }
+}

@@ -26,6 +26,39 @@ loom {
 	}
 }
 
+// Client game tests in src/gametest/ (./gradlew runClientGameTest). They never ship: build doesn't compile them.
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "storage-container-labels-gametest"
+		enableGameTests = false
+		enableClientGameTests = true
+		eula = true // the user accepted the Minecraft EULA for test servers; the client tests start a dedicated server
+	}
+}
+
+// The game tests packaged as their own jar, so they can run against the release jar in production
+def gametestJar = tasks.register("gametestJar", Jar) {
+	from sourceSets.gametest.output
+	archiveClassifier = "gametest"
+	destinationDirectory = layout.buildDirectory.dir("gametest-libs") // keep it out of build/libs, which CI uploads
+}
+
+def productionGameTestDir = layout.buildDirectory.dir("run/productionClientGameTest") // not run/, which holds the dev world
+tasks.register("runProductionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
+	mods.from(gametestJar)
+	jvmArgs.add("-Dfabric.client.gametest")
+	jvmArgs.add("-Dfabric.noGui=true") // a load error fails the run instead of waiting on an error window
+	runDir = productionGameTestDir
+	doFirst {
+		// Start like a fresh install, as runClientGameTest does, with the EULA accepted like eula = true above
+		def dir = productionGameTestDir.get().asFile
+		dir.deleteDir()
+		dir.mkdirs()
+		new File(dir, "eula.txt").text = "eula=true\n"
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -44,6 +77,19 @@ dependencies {
 	runtimeOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
+
+	// The game tests drive the Cloth Config screen and open it through Mod Menu
+	gametestCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	gametestCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	// Runtime mods for runProductionClientGameTest, which launches the release jar like a launcher does
+	productionRuntimeMods "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	productionRuntimeMods("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		transitive = false // just the jar players install: it shades its libraries, which its POM also lists
+	}
+	productionRuntimeMods "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
