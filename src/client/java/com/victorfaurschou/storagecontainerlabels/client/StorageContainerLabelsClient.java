@@ -106,7 +106,9 @@ public class StorageContainerLabelsClient implements ClientModInitializer {
 						.then(ClientCommands.literal("config")
 								.executes(ctx -> {
 									Minecraft mc = Minecraft.getInstance();
-									mc.execute(() -> mc.gui.setScreen(ClothConfigScreen.build(null)));
+									// Queued rather than run right away: the chat screen closes itself after running
+									// a command, and would close this screen along with it
+									mc.schedule(() -> mc.gui.setScreen(ClothConfigScreen.build(null)));
 									return 1;
 								}))
 						.then(ClientCommands.literal("version")
